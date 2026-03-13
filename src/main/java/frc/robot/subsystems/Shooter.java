@@ -87,7 +87,7 @@ public final class Shooter extends SubsystemBase implements ActiveSubsystem {
       SHOOTER_VELOCITIES.put(3.67, 29.5);
     } else {
       // Practice bot 65 degree hood
-      SHOOTER_VELOCITIES.put(1.28, 12.75);
+      // SHOOTER_VELOCITIES.put(1.28, 12.75);
       // SHOOTER_VELOCITIES.put(1.35, TBD);
       // SHOOTER_VELOCITIES.put(1.67, TBD);
       // SHOOTER_VELOCITIES.put(2.0, TBD);
@@ -95,10 +95,10 @@ public final class Shooter extends SubsystemBase implements ActiveSubsystem {
       // SHOOTER_VELOCITIES.put(2.66, TBD);
       // SHOOTER_VELOCITIES.put(3.05, TBD);
       // SHOOTER_VELOCITIES.put(3.35, TBD);
-      SHOOTER_VELOCITIES.put(3.67, 17.9);
-      SHOOTER_VELOCITIES.put(4.3, 21.25);
+      // SHOOTER_VELOCITIES.put(3.67, 17.9);
+      // SHOOTER_VELOCITIES.put(4.3, 21.25);
 
-      /* Practice bot 70 degree hood
+      // Practice bot 70 degree hood
       SHOOTER_VELOCITIES.put(1.28, 13.25);
       SHOOTER_VELOCITIES.put(1.35, 13.5);
       SHOOTER_VELOCITIES.put(1.67, 14.25);
@@ -107,7 +107,7 @@ public final class Shooter extends SubsystemBase implements ActiveSubsystem {
       SHOOTER_VELOCITIES.put(2.66, 18.0);
       SHOOTER_VELOCITIES.put(3.05, 19.5);
       SHOOTER_VELOCITIES.put(3.35, 22.0);
-      SHOOTER_VELOCITIES.put(3.67, 30.0); */
+      SHOOTER_VELOCITIES.put(3.67, 30.0);
     }
   }
 
@@ -199,7 +199,7 @@ public final class Shooter extends SubsystemBase implements ActiveSubsystem {
   private DoubleLogEntry logCurrentVoltage = new DoubleLogEntry(LOG, "/Shooter/Current Voltage");
   public static final double TOWER_SHOT_DISTANCE = 3.05;
   public static final double HUB_SHOT_DISTANCE = 1.3;
-  public static final double MAX_SHOOTING_DISTANCE = 3.7;
+  public static final double MAX_SHOOTING_DISTANCE = 3.7; // TODO: Update for hood angle
   public static final double SHOOTING_RANGE = MAX_SHOOTING_DISTANCE - HUB_SHOT_DISTANCE;
 
   /** Creates a new Shooter subsystem. */

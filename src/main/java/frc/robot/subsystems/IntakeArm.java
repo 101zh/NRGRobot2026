@@ -24,6 +24,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.nrg948.dashboard.annotations.DashboardBooleanBox;
 import com.nrg948.dashboard.annotations.DashboardCommand;
 import com.nrg948.dashboard.annotations.DashboardDefinition;
 import com.nrg948.dashboard.annotations.DashboardRadialGauge;
@@ -81,7 +82,7 @@ public final class IntakeArm extends SubsystemBase implements ActiveSubsystem {
   private final RelativeEncoder encoder = motor.getEncoder();
 
   private double currentAngle = 0;
-  private double goalAngle = 0;
+  private double goalAngle = STOW_ANGLE;
   private double currentVelocity = 0;
   private boolean enabled;
   private boolean hasError = false;
@@ -160,7 +161,7 @@ public final class IntakeArm extends SubsystemBase implements ActiveSubsystem {
     TalonFXConfigurator configurator = talonFX.getConfigurator();
     configurator.apply(talonFXConfigs);
 
-    encoder.setPosition(STOW_ANGLE);
+    resetArmPosition(STOW_ANGLE);
   }
 
   /** Polls sensors and logs telemetry. */
@@ -273,6 +274,7 @@ public final class IntakeArm extends SubsystemBase implements ActiveSubsystem {
   }
 
   @Override
+  @DashboardBooleanBox(title = "Enabled", column = 0, row = 3, width = 1, height = 1)
   public boolean isEnabled() {
     return enabled;
   }
@@ -287,25 +289,29 @@ public final class IntakeArm extends SubsystemBase implements ActiveSubsystem {
     return hasError;
   }
 
+  private void resetArmPosition(double angleRadians) {
+    encoder.setPosition(angleRadians);
+    goalAngle = angleRadians;
+  }
+
   public void setStowedPosition() {
-    encoder.setPosition(STOW_ANGLE);
+    resetArmPosition(STOW_ANGLE);
   }
 
   public void setExtendedPosition() {
-    encoder.setPosition(EXTENDED_ANGLE);
+    resetArmPosition(EXTENDED_ANGLE);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     updateTelemetry();
-    checkError();
-
-    if (goalAngle == EXTENDED_ANGLE && currentAngle < EXTENDED_ANGLE) {
-      encoder.setPosition(EXTENDED_ANGLE);
-    }
-    if (goalAngle == STOW_ANGLE && currentAngle > STOW_ANGLE) {
-      encoder.setPosition(STOW_ANGLE);
+    if ((goalAngle == IntakeArm.STOW_ANGLE || goalAngle == IntakeArm.EXTENDED_ANGLE)) {
+      if (atGoalAngle()) {
+        disable();
+      } else if (!enabled) {
+        setGoalAngle(goalAngle);
+      }
     }
   }
 }
