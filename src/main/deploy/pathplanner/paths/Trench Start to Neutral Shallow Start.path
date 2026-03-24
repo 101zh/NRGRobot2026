@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.187077777777779,
-        "y": 2.358955555555555
+        "x": 4.1870807088730855,
+        "y": 2.3589518380407766
       },
       "isLocked": false,
       "linkedName": "Trench Start"
@@ -48,16 +48,16 @@
     },
     {
       "anchor": {
-        "x": 7.55,
+        "x": 7.3,
         "y": 0.6926555555555558
       },
       "prevControl": {
-        "x": 7.277155555555555,
-        "y": 0.7121444444444445
+        "x": 7.085196551348259,
+        "y": 0.5232938535635159
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Neutral Start"
+      "linkedName": "Neutral Shallow Start"
     }
   ],
   "rotationTargets": [
